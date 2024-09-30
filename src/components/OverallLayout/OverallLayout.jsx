@@ -8,15 +8,16 @@ import CodeEditor from "../CodeEditor/CodeEditor";
 function OverallLayout() {
   const [questionWidth, setQuestionWidth] = useState(40);
   const [editorWidth, setEditorWidth] = useState(60);
-  const [topHeight, setTopHeight] = useState(70);
-  const [bottomHeight, setBottomHeight] = useState(30);
+  const [topHeight, setTopHeight] = useState(80);
+  const [bottomHeight, setBottomHeight] = useState(20);
+  const [isDragging, setIsDragging] = useState(false);
 
   const handleHorizontalDrag = (e) => {
     e.preventDefault();
     const newQuestionWidth = (e.clientX / window.innerWidth) * 100;
     const newEditorWidth = 100 - newQuestionWidth;
 
-    if (newQuestionWidth > 20 && newEditorWidth > 20) {
+    if (newQuestionWidth > 25 && newEditorWidth > 40) {
       setQuestionWidth(newQuestionWidth);
       setEditorWidth(newEditorWidth);
     }
@@ -27,38 +28,41 @@ function OverallLayout() {
     const newTopHeight = (e.clientY / window.innerHeight) * 100;
     const newBottomHeight = 100 - newTopHeight;
 
-    if (newTopHeight > 20 && newBottomHeight > 20) {
+    if (newTopHeight > 30 && newBottomHeight > 20) {
       setTopHeight(newTopHeight);
       setBottomHeight(newBottomHeight);
     }
   };
 
   const handleMouseDownHorizontal = () => {
+    setIsDragging(true);
     document.addEventListener("mousemove", handleHorizontalDrag);
     document.addEventListener("mouseup", handleMouseUp);
   };
 
   const handleMouseDownVertical = () => {
+    setIsDragging(true);
     document.addEventListener("mousemove", handleVerticalDrag);
     document.addEventListener("mouseup", handleMouseUp);
   };
 
   const handleMouseUp = () => {
+    setIsDragging(false);
     document.removeEventListener("mousemove", handleHorizontalDrag);
     document.removeEventListener("mousemove", handleVerticalDrag);
     document.removeEventListener("mouseup", handleMouseUp);
   };
   return (
-    <div className="flex flex-col h-screen">
+    <div className={`flex flex-col h-screen ${isDragging ? "no-select" : ""}`}>
       <div className="flex w-full" style={{ height: `${topHeight}%` }}>
         <div
-          className="relative bg-gray-700 p-4 overflow-auto text-ellipsis"
+          className="relative bg-gray-700 p-2 mt-2 overflow-auto text-ellipsis"
           style={{ width: `${questionWidth}%` }}
         >
           <QuestionArea />
         </div>
         <div
-          className="w-2 bg-gray-300 cursor-col-resize"
+          className="w-2 bg-gray-400 gutter gutter-horizontal"
           onMouseDown={handleMouseDownHorizontal}
         ></div>
         <div
@@ -69,17 +73,17 @@ function OverallLayout() {
         </div>
       </div>
       <div
-        className="h-2 bg-gray-400 cursor-row-resize"
+        className="h-2 bg-gray-400 gutter gutter-vertical"
         onMouseDown={handleMouseDownVertical}
       ></div>
       <div
         className="flex flex-col md:flex-row w-full"
         style={{ height: `${bottomHeight}%` }}
       >
-        <div className="flex-1 bg-gray-200 p-4 overflow-auto">
+        <div className="flex-1 bg-gray-200 p-1 overflow-auto">
           <OutputArea />
         </div>
-        <div className="flex-1 bg-gray-300 p-4 overflow-auto">
+        <div className="flex-1 bg-gray-300 p-1 overflow-auto">
           <TestCaseArea />
         </div>
       </div>

@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
 function TestCaseArea() {
   return (
-    <div>TestCaseArea</div>
-  )
+    <div className="p-1 h-full bg-slate-700 rounded-md"> TestCase Area</div>
+  );
 }
 
-export default TestCaseArea
+export default TestCaseArea;
