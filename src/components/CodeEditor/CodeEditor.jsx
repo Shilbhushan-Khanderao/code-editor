@@ -38,7 +38,7 @@ function CodeEditor({ topHeight, editorWidth }) {
   return (
     <div>
       <Modal activity={activity} open={open} onClose={() => setOpen(false)} />
-      <EditorNavbar />
+      <EditorNavbar language={language} setLanguage={setLanguage} />
       <div className="overlay overflow-hidden w-full h-full shadow-4xl rounded-md">
         <Editor
           height={`${topHeight}vh`}

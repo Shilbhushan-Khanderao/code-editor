@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import QuestionArea from "../QuestionArea/QuestionArea";
 import OutputArea from "../OutputArea/OutputArea";
 import TestCaseArea from "../TestCaseArea/TestCaseArea";
@@ -17,7 +17,7 @@ function OverallLayout() {
     const newQuestionWidth = (e.clientX / window.innerWidth) * 100;
     const newEditorWidth = 100 - newQuestionWidth;
 
-    if (newQuestionWidth > 25 && newEditorWidth > 40) {
+    if (newQuestionWidth > 25 && newEditorWidth > 45) {
       setQuestionWidth(newQuestionWidth);
       setEditorWidth(newEditorWidth);
     }
