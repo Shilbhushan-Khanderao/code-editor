@@ -1,9 +1,10 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import QuestionArea from "../QuestionArea/QuestionArea";
 import OutputArea from "../OutputArea/OutputArea";
 import TestCaseArea from "../TestCaseArea/TestCaseArea";
 import CodeEditor from "../CodeEditor/CodeEditor";
+import CodeTimer from "../Timer/CodeTimer";
 
 function OverallLayout() {
   const [questionWidth, setQuestionWidth] = useState(40);
@@ -17,7 +18,7 @@ function OverallLayout() {
     const newQuestionWidth = (e.clientX / window.innerWidth) * 100;
     const newEditorWidth = 100 - newQuestionWidth;
 
-    if (newQuestionWidth > 25 && newEditorWidth > 45) {
+    if (newQuestionWidth > 25 && newEditorWidth > 50) {
       setQuestionWidth(newQuestionWidth);
       setEditorWidth(newEditorWidth);
     }
@@ -54,9 +55,12 @@ function OverallLayout() {
   };
   return (
     <div className={`flex flex-col h-screen ${isDragging ? "no-select" : ""}`}>
+      {/* <div>
+        <CodeTimer />
+      </div> */}
       <div className="flex w-full" style={{ height: `${topHeight}%` }}>
         <div
-          className="relative bg-gray-700 p-2 mt-2 overflow-auto text-ellipsis"
+          className="relative bg-gray-950 p-2 mt-2 overflow-auto text-ellipsis"
           style={{ width: `${questionWidth}%` }}
         >
           <QuestionArea />

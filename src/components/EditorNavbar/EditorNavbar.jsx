@@ -1,24 +1,31 @@
-import React, { useContext } from "react";
-import { MyContext } from "../lib/MyContext";
+"use client";
+import React, { useContext, useState } from "react";
+import { MyContext, ThemeContext } from "../lib/MyContext";
+import { FaPlay } from "react-icons/fa";
+import { SiCompilerexplorer } from "react-icons/si";
+import { MdLightMode, MdNightlight } from "react-icons/md";
 
 function EditorNavbar({ language, setLanguage }) {
   const { setText } = useContext(MyContext);
+  const { theme, setTheme } = useContext(ThemeContext);
   return (
     <div className="flex">
       <button
-        className="bg-green-500 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow me-2 mb-1"
+        className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow me-2 mb-1"
         onClick={() => setText("Compile Button Clicked")}
       >
         Compile
+        {/* <SiCompilerexplorer /> */}
       </button>
       <button
         className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow me-2 mb-1"
         onClick={() => setText("Run Button Clicked")}
       >
         Run
+        {/* <FaPlay /> */}
       </button>
       <button
-        className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow me-2 mb-1"
+        className="bg-green-500 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow me-2 mb-1"
         onClick={() => setText("Submit Button Clicked")}
       >
         Submit
@@ -36,6 +43,12 @@ function EditorNavbar({ language, setLanguage }) {
           <option value="cpp">C++</option>
           <option value="java">Java</option>
         </select>
+        <button
+          className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded shadow ms-5"
+          onClick={() => setTheme(!theme)}
+        >
+          {theme ? <MdLightMode /> : <MdNightlight />}
+        </button>
       </div>
     </div>
   );
