@@ -4,7 +4,7 @@ import QuestionArea from "../QuestionArea/QuestionArea";
 import OutputArea from "../OutputArea/OutputArea";
 import TestCaseArea from "../TestCaseArea/TestCaseArea";
 import CodeEditor from "../CodeEditor/CodeEditor";
-import CodeTimer from "../Timer/CodeTimer";
+import { FaChevronUp } from "react-icons/fa";
 
 function OverallLayout() {
   const [questionWidth, setQuestionWidth] = useState(40);
@@ -12,6 +12,7 @@ function OverallLayout() {
   const [topHeight, setTopHeight] = useState(80);
   const [bottomHeight, setBottomHeight] = useState(20);
   const [isDragging, setIsDragging] = useState(false);
+  const [bottomDockToggle, setBottomDockToggle] = useState(false);
 
   const handleHorizontalDrag = (e) => {
     e.preventDefault();
@@ -55,12 +56,9 @@ function OverallLayout() {
   };
   return (
     <div className={`flex flex-col h-screen ${isDragging ? "no-select" : ""}`}>
-      {/* <div>
-        <CodeTimer />
-      </div> */}
       <div className="flex w-full" style={{ height: `${topHeight}%` }}>
         <div
-          className="relative bg-gray-950 p-2 mt-2 overflow-auto text-ellipsis"
+          className="relative bg-neutral-800 bg-opacity-60 p-2 mt-2 overflow-auto text-ellipsis"
           style={{ width: `${questionWidth}%` }}
         >
           <QuestionArea />
@@ -70,7 +68,7 @@ function OverallLayout() {
           onMouseDown={handleMouseDownHorizontal}
         ></div>
         <div
-          className="relative bg-gray-100 p-2 overflow-auto text-ellipsis"
+          className="relative bg-gray-100 p-1 overflow-auto text-ellipsis"
           style={{ width: `${editorWidth}%` }}
         >
           <CodeEditor topHeight={topHeight} editorWidth={editorWidth} />
@@ -82,13 +80,22 @@ function OverallLayout() {
       ></div>
       <div
         className="flex flex-col md:flex-row w-full"
-        style={{ height: `${bottomHeight}%` }}
+        style={
+          bottomDockToggle ? { height: "auto" } : { height: `${bottomHeight}%` }
+        }
       >
         <div className="flex-1 bg-gray-200 p-1 overflow-auto">
-          <OutputArea />
-        </div>
-        <div className="flex-1 bg-gray-300 p-1 overflow-auto">
           <TestCaseArea />
+        </div>
+        <button
+          className="hover:bg-neutral-700 text-white-800 p-1 rounded h-5 shadow m-1"
+          onClick={() => setBottomDockToggle(!bottomDockToggle)}
+        >
+          <FaChevronUp />
+        </button>
+
+        <div className="flex-1 bg-gray-300 p-1 overflow-auto">
+          <OutputArea />
         </div>
       </div>
     </div>

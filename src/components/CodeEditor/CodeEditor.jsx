@@ -52,7 +52,6 @@ function CodeEditor({ topHeight, editorWidth }) {
             theme={!theme ? "vs-dark" : "light"}
             language={language}
             options={options}
-            defaultValue="Write your code here..."
             onMount={onMount}
           />
         </div>

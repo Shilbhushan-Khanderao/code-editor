@@ -1,34 +1,44 @@
-import React from "react";
-
+import { useContext } from "react";
+import { FaPlay, FaSave } from "react-icons/fa";
+import { MyContext, ThemeContext } from "../lib/MyContext";
+import { FaCloudUploadAlt } from "react-icons/fa";
+import { MdLightMode, MdNightlight, MdHelp } from "react-icons/md";
 function Navbar() {
+  const { setText } = useContext(MyContext);
+  const { theme, setTheme } = useContext(ThemeContext);
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-gray-500 p-2">
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <span className="font-semibold text-xl tracking-tight">
-          Code Editor
-        </span>
+    <nav className="flex bg-gray-800 p-2">
+      <div className="flex-shrink-0 text-white mr-6">Logo</div>
+      <div className="flex text-sm lg:flex-grow items-center justify-center">
+        <button
+          className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded shadow me-2 mb-1"
+          onClick={() => setText("Save Button Clicked")}
+        >
+          <FaSave />
+        </button>
+        <button
+          className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded shadow me-2 mb-1"
+          onClick={() => setText("Run Button Clicked")}
+        >
+          <FaPlay />
+        </button>
+        <button
+          className="bg-green-500 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded shadow me-2 mb-1"
+          onClick={() => setText("Submit Button Clicked")}
+        >
+          <FaCloudUploadAlt />
+        </button>
       </div>
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div className="text-sm lg:flex-grow">
-          <a
-            href="#home"
-            className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4"
-          >
-            Home
-          </a>
-          <a
-            href="#about"
-            className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white mr-4"
-          >
-            About
-          </a>
-          <a
-            href="#exam"
-            className="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-white"
-          >
-            Exam
-          </a>
-        </div>
+      <div className="flex justify-end me-1">
+        <button
+          className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 rounded-full shadow ms-5 me-3"
+          onClick={() => setTheme(!theme)}
+        >
+          {theme ? <MdLightMode /> : <MdNightlight />}
+        </button>
+        <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold p-1 rounded-full shadow me-2">
+          <MdHelp />
+        </button>
       </div>
     </nav>
   );
